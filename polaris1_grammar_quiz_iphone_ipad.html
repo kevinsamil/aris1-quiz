@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>英文法4択クイズ｜iPhone・iPad対応</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#172033;background:#f5f7fb}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;min-height:100dvh;background:linear-gradient(180deg,#eef4ff,#f8fafc);-webkit-text-size-adjust:100%;overflow-x:hidden}
+.app{width:min(920px,100%);margin:auto;padding:env(safe-area-inset-top) 18px env(safe-area-inset-bottom)}
+header{position:sticky;top:0;z-index:5;padding:14px 0 10px;background:rgba(248,250,252,.94);backdrop-filter:blur(10px)}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:800}
+.badge{font-size:14px;color:#506078}
+.rate{font-size:14px}
+.progress{height:8px;background:#dfe6f0;border-radius:99px;overflow:hidden;margin-top:10px}
+.bar{height:100%;width:0;background:#315efb;transition:.25s}
+.card{background:#fff;border-radius:24px;padding:24px;margin:16px 0;box-shadow:0 10px 30px rgba(30,50,90,.09)}
+.start{text-align:center;padding:42px 24px}
+h1{font-size:clamp(26px,5vw,40px);margin:0 0 12px}
+h2{font-size:clamp(21px,4vw,30px);line-height:1.5}
+p{line-height:1.7}
+.small{font-size:13px;color:#64748b}
+.category{display:inline-block;background:#edf2ff;color:#3154c7;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
+.question{font-size:clamp(21px,4.5vw,30px);line-height:1.65;margin:16px 0 22px;font-weight:750}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.choice{min-height:64px;padding:12px 14px;border-radius:16px;background:#f3f6fa;border:2px solid transparent;text-align:left;font-weight:700;font-size:17px}
+.choice:active{transform:scale(.99)}
+.choice.correct{background:#dff7e8;border-color:#20a55b;color:#116b3a}
+.choice.wrong{background:#ffe1e1;border-color:#e04444;color:#9b1c1c}
+.choice:disabled{cursor:default}
+.feedback{margin-top:16px;padding:16px;border-radius:16px;display:none;line-height:1.7}
+.feedback.show{display:block}
+.feedback.ok{background:#e9f9ef;color:#17683a}
+.feedback.ng{background:#fff0f0;color:#9b1c1c}
+.next{display:none;width:100%;margin-top:14px;padding:15px;border-radius:15px;background:#315efb;color:#fff;font-weight:800}
+.next.show{display:block}
+.primary{display:inline-block;padding:16px 28px;border-radius:16px;background:#315efb;color:#fff;font-weight:800;font-size:17px}
+.secondary{padding:12px 18px;border-radius:14px;background:#e8edf5;font-weight:800}
+.summary-list{display:grid;gap:10px;padding:0;list-style:none}
+.summary-list li{padding:13px 14px;background:#f5f7fa;border-radius:13px}
+.hidden{display:none}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.stat div{background:#f3f6fa;border-radius:16px;padding:15px;text-align:center}
+.stat strong{display:block;font-size:28px;margin-top:4px}
+.footer-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+@media(max-width:640px){
+  .app{width:100%;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+  header{padding-top:max(10px,env(safe-area-inset-top));}
+  .choices{grid-template-columns:1fr}
+  .card{padding:16px;border-radius:18px;margin:12px 0}
+  .start{padding:30px 18px}
+  .question{font-size:20px;line-height:1.6}
+  .choice{min-height:60px;font-size:16px;padding:14px}
+  .next,.primary{min-height:52px}
+  .top{font-size:14px}
+}
+@media(orientation:landscape) and (min-width:500px){
+  .app{max-width:1050px}
+  .card{padding:24px 30px}
+  .choices{grid-template-columns:1fr 1fr}
+  .question{font-size:23px}
+}
+@media(orientation:landscape) and (max-width:899px){
+  header{position:relative}
+  .card{margin-top:10px}
+}
+@supports (padding:max(0px)){
+  .app{padding-bottom:max(18px,env(safe-area-inset-bottom))}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header id="header" class="hidden">
+  <div class="top"><span id="count">第1問</span><span class="rate" id="rate">正答率 0%</span></div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+</header>
+
+<section id="start" class="card start">
+  <div class="category">英文法4択クイズ</div>
+  <h1>Polaris 1<br>iPhone・iPad対応</h1>
+  <p>目次写真の5章・各分野をカバーする、オリジナル問題の4択クイズです。</p>
+  <p class="small">間違えた問題はラウンドの最後に自動で出し直し、正解するまで繰り返します。縦向き・横向きの両方に対応しています。</p>
+  <p class="small">※本書の問題文をそのまま転載せず、目次の学習範囲に沿ったオリジナル問題を収録しています。</p>
+  <button class="primary" id="startBtn">クイズを始める</button>
+</section>
+
+<section id="quiz" class="card hidden">
+  <span class="category" id="cat"></span>
+  <div class="question" id="question"></div>
+  <div class="choices" id="choices"></div>
+  <div id="feedback" class="feedback"></div>
+  <button id="nextBtn" class="next">次の問題へ</button>
+</section>
+
+<section id="summary" class="card hidden">
+  <div class="category">ROUND CLEAR</div>
+  <h2>全問正解！</h2>
+  <div class="stat">
+    <div>回答数<strong id="finalAnswered">0</strong></div>
+    <div>最終正答率<strong id="finalRate">0%</strong></div>
+  </div>
+  <h3>今回間違えた選択肢</h3>
+  <ul class="summary-list" id="wrongList"></ul>
+  <p class="small">「間違えた選択肢」がない場合は、最初から全問正解です。</p>
+  <div class="footer-actions">
+    <button class="primary" id="restartBtn">もう一度挑戦</button>
+  </div>
+</section>
+</div>
+
+<script>
+const QUESTIONS = [{"cat": "Chapter 1｜動詞関連・時制", "q": "I (　　　) this book three times so far.", "choices": ["read", "have read", "am reading", "was reading"], "ans": 1, "exp": "so far（今までに）があるので現在完了。have read が適切です。"}, {"cat": "Chapter 1｜動詞関連・時制", "q": "When I arrived at the station, the train (　　　).", "choices": ["leaves", "has left", "had left", "will leave"], "ans": 2, "exp": "過去のある時点より前に起きたことなので過去完了 had left。"}, {"cat": "Chapter 1｜動詞関連・助動詞", "q": "You (　　　) be tired after running ten kilometers.", "choices": ["must", "can", "would", "used"], "ans": 0, "exp": "状況からの強い推量「〜に違いない」なので must。"}, {"cat": "Chapter 1｜動詞関連・助動詞", "q": "You (　　　) have told me earlier. I could have helped you.", "choices": ["should", "shouldn't", "must", "can"], "ans": 0, "exp": "should have + 過去分詞で「〜すべきだったのに」。"}, {"cat": "Chapter 1｜動詞関連・仮定法", "q": "If I (　　　) you, I would accept the offer.", "choices": ["am", "was", "were", "be"], "ans": 2, "exp": "仮定法過去の be 動詞は主語にかかわらず were を使うのが基本です。"}, {"cat": "Chapter 1｜動詞関連・仮定法", "q": "If she had studied harder, she (　　　) the exam.", "choices": ["passes", "would pass", "would have passed", "will pass"], "ans": 2, "exp": "過去の事実と反対の仮定なので would have + 過去分詞。"}, {"cat": "Chapter 1｜動詞関連・受動態", "q": "This bridge (　　　) in 1998.", "choices": ["built", "was built", "has built", "is building"], "ans": 1, "exp": "「橋が建設された」という受け身なので was built。"}, {"cat": "Chapter 2｜準動詞・不定詞", "q": "I went to the library (　　　) some books.", "choices": ["borrow", "borrowing", "to borrow", "borrowed"], "ans": 2, "exp": "目的「〜するために」なので to不定詞。"}, {"cat": "Chapter 2｜準動詞・不定詞", "q": "This box is too heavy for me (　　　).", "choices": ["carry", "to carry", "carrying", "carried"], "ans": 1, "exp": "too ... to do の形で「〜するには…すぎる」。"}, {"cat": "Chapter 2｜準動詞・動名詞", "q": "I enjoy (　　　) tennis on weekends.", "choices": ["play", "to play", "playing", "played"], "ans": 2, "exp": "enjoy は目的語に動名詞を取ります。"}, {"cat": "Chapter 2｜準動詞・動名詞", "q": "She is good at (　　　) difficult problems.", "choices": ["solve", "to solve", "solving", "solved"], "ans": 2, "exp": "前置詞 at の後ろなので動名詞 solving。"}, {"cat": "Chapter 2｜準動詞・分詞", "q": "The girl (　　　) by the window is my sister.", "choices": ["stand", "standing", "stood", "stands"], "ans": 1, "exp": "「窓のそばに立っている少女」なので現在分詞 standing。"}, {"cat": "Chapter 2｜準動詞・分詞", "q": "I found the door (　　　) when I came home.", "choices": ["open", "opening", "opened", "opens"], "ans": 2, "exp": "「ドアが開けられた状態」を表すので過去分詞 opened。"}, {"cat": "Chapter 3｜構造系・関係詞", "q": "The woman (　　　) lives next door is a doctor.", "choices": ["which", "who", "whom", "whose"], "ans": 1, "exp": "先行詞が人で、関係詞節の主語なので who。"}, {"cat": "Chapter 3｜構造系・関係詞", "q": "This is the book (　　　) I told you about.", "choices": ["who", "whose", "which", "where"], "ans": 2, "exp": "先行詞が物で、about の目的語なので which。"}, {"cat": "Chapter 3｜構造系・比較", "q": "My brother is (　　　) than I am.", "choices": ["tall", "taller", "more tall", "the tallest"], "ans": 1, "exp": "短い形容詞の比較級は -er。"}, {"cat": "Chapter 3｜構造系・比較", "q": "This is one of (　　　) movies I have ever seen.", "choices": ["interesting", "more interesting", "the most interesting", "most interesting"], "ans": 2, "exp": "one of the + 最上級 + 複数名詞の形。"}, {"cat": "Chapter 3｜構造系・疑問", "q": "I don't know (　　　) he will come tomorrow.", "choices": ["whether", "what", "which", "whose"], "ans": 0, "exp": "「彼が来るかどうか」なので whether。"}, {"cat": "Chapter 3｜構造系・否定", "q": "I have (　　　) seen such a beautiful view.", "choices": ["ever", "never", "already", "still"], "ans": 1, "exp": "have never seen で「一度も見たことがない」。"}, {"cat": "Chapter 3｜構造系・倒置・強調・語順", "q": "Not until midnight (　　　) the work.", "choices": ["I finished", "did I finish", "I did finish", "finished I"], "ans": 1, "exp": "Not until ... が文頭に出ると倒置が起こり、did I finish となります。"}, {"cat": "Chapter 4｜品詞系・前置詞", "q": "He arrived (　　　) the airport at seven.", "choices": ["in", "at", "on", "to"], "ans": 1, "exp": "arrive at + 小さい場所で「〜に到着する」。"}, {"cat": "Chapter 4｜品詞系・接続詞", "q": "I stayed home (　　　) it was raining heavily.", "choices": ["because", "although", "unless", "while"], "ans": 0, "exp": "理由を表すので because。"}, {"cat": "Chapter 4｜品詞系・冠詞・名詞", "q": "My father is (　　　) engineer.", "choices": ["a", "an", "the", "no article"], "ans": 1, "exp": "engineer は母音の音で始まるため an engineer。"}, {"cat": "Chapter 4｜品詞系・形容詞", "q": "The movie was so (　　　) that I watched it twice.", "choices": ["interest", "interesting", "interested", "interestingly"], "ans": 1, "exp": "映画が「興味を引き起こす」側なので interesting。"}, {"cat": "Chapter 4｜品詞系・代名詞", "q": "Ken and I finished the project by (　　　).", "choices": ["ourselves", "us", "our", "we"], "ans": 0, "exp": "「自分たちだけで」なので再帰代名詞 ourselves。"}, {"cat": "Chapter 4｜品詞系・副詞", "q": "She speaks English very (　　　).", "choices": ["good", "well", "better", "best"], "ans": 1, "exp": "speak という動詞を修飾する副詞 well。"}, {"cat": "Chapter 5｜文型・第1〜第3文型", "q": "The baby (　　　) peacefully.", "choices": ["slept", "became", "gave", "made"], "ans": 0, "exp": "主語＋動詞だけで意味が成立する第1文型。slept が適切。"}, {"cat": "Chapter 5｜文型・第1〜第3文型", "q": "The soup (　　　) delicious.", "choices": ["tasted", "gave", "put", "sent"], "ans": 0, "exp": "taste は「〜の味がする」という第2文型を作れます。"}, {"cat": "Chapter 5｜文型・第1〜第3文型", "q": "She opened the window.", "choices": ["第1文型", "第2文型", "第3文型", "第5文型"], "ans": 2, "exp": "open の後ろに目的語 the window があるので第3文型（SVO）。"}, {"cat": "Chapter 5｜文型・第4文型", "q": "My uncle gave (　　　) a useful dictionary.", "choices": ["I", "me", "my", "mine"], "ans": 1, "exp": "give は「人に物を与える」の第4文型で、間接目的語は me。"}, {"cat": "Chapter 5｜文型・第5文型", "q": "The news made me (　　　).", "choices": ["happy", "happily", "happiness", "happierly"], "ans": 0, "exp": "make＋O＋C の第5文型。me と happy の関係が「me＝happy」。"}, {"cat": "Chapter 5｜文型・第5文型", "q": "We found the room (　　　).", "choices": ["empty", "emptily", "emptiness", "emptied"], "ans": 0, "exp": "find＋O＋C の第5文型で「部屋が空だと分かった」。"}];
+let deck=[], roundQueue=[], index=0, answered=0, correct=0, wrongAttempts=[], locked=false;
+
+const $ = id => document.getElementById(id);
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startGame(){
+  deck=shuffle(QUESTIONS); roundQueue=[]; index=0; answered=0; correct=0; wrongAttempts=[]; locked=false;
+  $("start").classList.add("hidden"); $("summary").classList.add("hidden"); $("quiz").classList.remove("hidden"); $("header").classList.remove("hidden");
+  render();
+}
+function render(){
+  locked=false;
+  const q=deck[index];
+  $("count").textContent=`第${index+1}問 / ${deck.length}問`;
+  $("rate").textContent=`正答率 ${answered?Math.round(correct/answered*100):0}%`;
+  $("bar").style.width=`${Math.round(index/deck.length*100)}%`;
+  $("cat").textContent=q.cat;
+  $("question").textContent=q.q;
+  $("feedback").className="feedback";
+  $("feedback").textContent="";
+  $("nextBtn").className="next";
+  const box=$("choices"); box.innerHTML="";
+  q.choices.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="choice"; b.textContent=`${"ABCD"[i]}. ${c}`;
+    b.onclick=()=>answer(i);
+    box.appendChild(b);
+  });
+}
+function answer(selected){
+  if(locked)return;
+  locked=true; answered++;
+  const q=deck[index], buttons=[...$("choices").children];
+  buttons.forEach(b=>b.disabled=true);
+  buttons[q.ans].classList.add("correct");
+  const fb=$("feedback");
+  if(selected===q.ans){
+    correct++;
+    fb.className="feedback show ok";
+    fb.innerHTML=`<strong>正解！</strong><br>${q.exp}`;
+  }else{
+    buttons[selected].classList.add("wrong");
+    wrongAttempts.push({question:q.q,selected:q.choices[selected],correct:q.choices[q.ans]});
+    roundQueue.push(q);
+    fb.className="feedback show ng";
+    fb.innerHTML=`<strong>不正解</strong><br>正しい答え：<strong>${"ABCD"[q.ans]}. ${q.choices[q.ans]}</strong><br>${q.exp}`;
+  }
+  $("rate").textContent=`正答率 ${Math.round(correct/answered*100)}%`;
+  $("nextBtn").className="next show";
+}
+function next(){
+  index++;
+  if(index<deck.length){render();return;}
+  if(roundQueue.length){
+    deck=shuffle(roundQueue); roundQueue=[]; index=0;
+    render();
+    $("feedback").className="feedback show";
+    $("feedback").textContent="間違えた問題をもう一度出題します。";
+    $("nextBtn").className="next";
+    return;
+  }
+  finish();
+}
+function finish(){
+  $("quiz").classList.add("hidden"); $("header").classList.add("hidden"); $("summary").classList.remove("hidden");
+  $("finalAnswered").textContent=answered;
+  $("finalRate").textContent=`${Math.round(correct/answered*100)}%`;
+  const ul=$("wrongList"); ul.innerHTML="";
+  const seen=new Set();
+  wrongAttempts.forEach(x=>{
+    const key=x.question+"|"+x.selected;
+    if(seen.has(key))return; seen.add(key);
+    const li=document.createElement("li");
+    li.innerHTML=`<strong>あなたの選択：</strong>${escapeHtml(x.selected)}<br><span class="small">正解：${escapeHtml(x.correct)}</span>`;
+    ul.appendChild(li);
+  });
+  if(!ul.children.length){
+    const li=document.createElement("li"); li.textContent="なし（最初から全問正解！）"; ul.appendChild(li);
+  }
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+$("startBtn").onclick=startGame;
+$("nextBtn").onclick=next;
+$("restartBtn").onclick=startGame;
+</script>
+</body>
+</html>
